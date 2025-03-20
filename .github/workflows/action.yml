@@ -7,13 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'BrowserStack Env Setup'
-        uses: 'Baaryan/github-actions/setup-env@v1.0.2'
+        uses: 'Baaryan/github-actions/setup-env@v1.0.3'
         with:
           username:  ${{secrets.BROWSERSTACK_USERNAME}}
           access-key: ${{secrets.BROWSERSTACK_ACCESS_KEY}}
           build-name: BUILD_INFO
       - name: 'BrowserStackLocal Setup'
-        uses: 'Baaryan/github-actions/setup-local@v1.0.2'
+        uses: 'Baaryan/github-actions/setup-local@v1.0.3'
         with:
           local-testing: start
           local-logging-level: all-logs
@@ -27,6 +27,6 @@ jobs:
       - name: 'run test'
         run: 'node index.js'
       - name: 'BrowserStackLocal Stop'
-        uses: 'Baaryan/github-actions/setup-local@v1.0.2'
+        uses: 'Baaryan/github-actions/setup-local@v1.0.3'
         with:
           local-testing: stop
