@@ -1,5 +1,4 @@
-name: 'BrowserStack Tests'
-
+name: 'BrowserStack'
 on: [push, pull_request]
 
 jobs:
@@ -8,102 +7,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'BrowserStack Env Setup'
-        uses: 'Baaryan/github-actions/setup-env@v1.0.4'
+        uses: 'browserstack/github-actions/setup-env@master'
         with:
-          username: ${{ secrets.BROWSERSTACK_USERNAME }}
-          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          username:  ${{secrets.BROWSERSTACK_USERNAME}}
+          access-key: ${{secrets.BROWSERSTACK_ACCESS_KEY}}
           build-name: BUILD_INFO
-
       - name: 'BrowserStackLocal Setup'
-        uses: 'Baaryan/github-actions/setup-local@v1.0.4'
+        uses: 'browserstack/github-actions/setup-local@master'
         with:
           local-testing: start
           local-logging-level: all-logs
           local-identifier: random
-
-      - name: 'Checkout Repository'
+      - name: 'checkout the repository demo'
         uses: 'actions/checkout@v2'
-
-      - name: 'Install Dependencies'
-        run: npm install
-
-      - name: 'Start HTTP Server'
+      - name: 'running npm install'
+        run: 'npm install'
+      - name: 'running http-server'
         run: './node_modules/.bin/http-server -p 8099 &'
-
-      - name: 'Run Tests'
-        run: node index.js
-
-      - name: 'Stop BrowserStackLocal'
-        uses: 'Baaryan/github-actions/setup-local@v1.0.4'
-        with:
-          local-testing: stop
-
-  windows-job:
-    name: 'BrowserStack Test on Windows'
-    runs-on: windows-latest
-    steps:
-      - name: 'BrowserStack Env Setup'
-        uses: 'Baaryan/github-actions/setup-env@v1.0.4'
-        with:
-          username: ${{ secrets.BROWSERSTACK_USERNAME }}
-          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-          build-name: BUILD_INFO
-
-      - name: 'BrowserStackLocal Setup'
-        uses: 'Baaryan/github-actions/setup-local@v1.0.4'
-        with:
-          local-testing: start
-          local-logging-level: all-logs
-          local-identifier: random
-
-      - name: 'Checkout Repository'
-        uses: 'actions/checkout@v2'
-
-      - name: 'Install Dependencies'
-        run: npm install
-
-      - name: 'Start HTTP Server'
-        run: './node_modules/.bin/http-server -p 8099 &'
-
-      - name: 'Run Tests'
-        run: node index.js
-
-      - name: 'Stop BrowserStackLocal'
-        uses: 'Baaryan/github-actions/setup-local@v1.0.4'
-        with:
-          local-testing: stop
-
-  macos-job:
-    name: 'BrowserStack Test on macOS'
-    runs-on: macos-latest
-    steps:
-      - name: 'BrowserStack Env Setup'
-        uses: 'Baaryan/github-actions/setup-env@v1.0.4'
-        with:
-          username: ${{ secrets.BROWSERSTACK_USERNAME }}
-          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-          build-name: BUILD_INFO
-
-      - name: 'BrowserStackLocal Setup'
-        uses: 'Baaryan/github-actions/setup-local@v1.0.4'
-        with:
-          local-testing: start
-          local-logging-level: all-logs
-          local-identifier: random
-
-      - name: 'Checkout Repository'
-        uses: 'actions/checkout@v2'
-
-      - name: 'Install Dependencies'
-        run: npm install
-
-      - name: 'Start HTTP Server'
-        run: './node_modules/.bin/http-server -p 8099 &'
-
-      - name: 'Run Tests'
-        run: node index.js
-
-      - name: 'Stop BrowserStackLocal'
-        uses: 'Baaryan/github-actions/setup-local@v1.0.4'
+      - name: 'run test'
+        run: 'node index.js'
+      - name: 'BrowserStackLocal Stop'
+        uses: 'browserstack/github-actions/setup-local@master'
         with:
           local-testing: stop
