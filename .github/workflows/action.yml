@@ -27,6 +27,6 @@ jobs:
       - name: 'run test'
         run: 'node index.js'
       - name: 'BrowserStackLocal Stop'
-        uses: 'Baaryan/github-actions/setup-local@v1.0.3'
+        uses: 'Baaryan/github-actions/setup-local@v1.0.4'
         with:
           local-testing: stop
